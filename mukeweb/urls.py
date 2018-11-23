@@ -14,10 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # from django.contrib import admin
+from django.conf.urls.static import static
+from django.views.static import serve
+
 import xadmin
 from django.urls import path, include
 
 from index.views import IndexView
+from mukeweb import settings
+from mukeweb.settings import MEDIA_ROOT
 
 urlpatterns = [
     path('admin/', xadmin.site.urls),
@@ -25,5 +30,9 @@ urlpatterns = [
     path('login/', IndexView.as_view, name='login'),
     path('^courses/', include(('courses.urls', 'courses'), namespace='course')),
     path('^org/', include(('organization.urls', 'organization'), namespace='org')),
+    path(r'^media/(?P<path>.*)$',  serve, {"document_root":MEDIA_ROOT}),
     path('', IndexView.as_view(), name='index'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
