@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'index',
     'courses',
     'organization',
+    'DjangoUeditor',
 ]
 
 # 需要添加AUTH_USER_MODEL，不然继承自AbstractUser的Model则会报403的错误
