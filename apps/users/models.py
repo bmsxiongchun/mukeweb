@@ -25,7 +25,7 @@ class Banner(Model):
     image = ImageField(upload_to='banner/%Y/%m', verbose_name=u'轮播图')
     url = URLField(max_length=200, verbose_name=u'访问地址')
     index = IntegerField(default=100, verbose_name=u'访问顺序')
-    add_time = DateTimeField(default=datetime.now(), verbose_name=u'添加时间')
+    add_time = DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
     class Meta:
         verbose_name = u'轮播图'

@@ -27,7 +27,7 @@ class Course(Model):
      tag = CharField(default='', verbose_name=u'课程标签', max_length=10)
      youneed_know = CharField(default='', max_length=300, verbose_name=u'课程须知')
      teacher_tell = CharField(default='', max_length=300, verbose_name=u'老师告诉你')
-     add_time = DateTimeField(default=datetime.now(), verbose_name=u'添加时间')
+     add_time = DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
      class Meta:
          verbose_name = u'课程'

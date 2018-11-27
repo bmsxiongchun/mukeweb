@@ -5,4 +5,5 @@ app_name = 'courses'
 
 urlpatterns = [
     path('list/', CourseView.as_view(), name='course_list'),
+    path('^detail/(?P<course_id>\d+)/$', CourseView.as_view(), name='course_detail'),
 ]

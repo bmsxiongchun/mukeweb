@@ -6,6 +6,20 @@ from django.db import models
 from django.db.models import Model, CharField, IntegerField, ImageField, ForeignKey, DateTimeField, CASCADE
 from DjangoUeditor.models import UEditorField
 
+
+class CityDict(Model):
+    name = CharField(max_length=20, verbose_name=u'城市')
+    desc = CharField(max_length=200, verbose_name=u'描述')
+    add_time = DateTimeField(default=datetime.now)
+
+    class Meta:
+        verbose_name = u'城市'
+        verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return self.name
+
+
 class CourseOrg(Model):
     name = CharField(max_length=50, verbose_name=u'机构名称')
     desc = UEditorField(verbose_name=u'机构描述', width=900, height=300, imagePath='org/ueditor/',
@@ -18,6 +32,8 @@ class CourseOrg(Model):
     address = CharField(max_length=150, verbose_name=u'地址')
     students = IntegerField(default=0, verbose_name=u'学习人数')
     course_nums = IntegerField(default=0, verbose_name=u'学习人数')
+    add_time = models.DateTimeField(default=datetime.now)
+    city = ForeignKey(CityDict, verbose_name=u'所在城市', on_delete=CASCADE)
 
 
 class Teacher(Model):
@@ -30,7 +46,7 @@ class Teacher(Model):
     fav_nums = IntegerField(default=0, verbose_name=u'收藏数')
     age = IntegerField(default=18, verbose_name=u'年龄')
     image = ImageField(default='', upload_to='teacher/%Y/%m', verbose_name=u'头像', max_length=100)
-    add_time = DateTimeField(default=datetime.now())
+    add_time = DateTimeField(default=datetime.now)
 
     class Meta:
         verbose_name = u'教师'
