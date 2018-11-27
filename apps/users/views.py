@@ -2,6 +2,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.views import View
 
 from users.forms import RegisterForm, LoginForm
@@ -40,7 +41,7 @@ class LogoutView(View):
     # 用户退出登录
     def get(self, request):
         logout(request)
-        return HttpResponseRedirect(reversed('index'))
+        return HttpResponseRedirect(reverse('index'))
 
 
 class LoginView(View):
@@ -57,7 +58,7 @@ class LoginView(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect(reversed("index"))
+                    return HttpResponseRedirect(reverse("index"))
                 else:
                     return render(request, "login.html", {"msg": "用户未激活!"})
             else:

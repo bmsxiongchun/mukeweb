@@ -23,12 +23,12 @@ from django.urls import path, include
 from index.views import IndexView
 from mukeweb import settings
 from mukeweb.settings import MEDIA_ROOT
-from users.views import RegisterView, LogoutView
+from users.views import RegisterView, LogoutView, LoginView
 
 urlpatterns = [
     path('admin/', xadmin.site.urls),
     path('register/', RegisterView.as_view(), name='register'),
-    path('login/', IndexView.as_view(), name='login'),
+    path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('courses/', include(('courses.urls', 'courses'), namespace='course')),
     path('org/', include(('organization.urls', 'organization'), namespace='org')),
@@ -36,6 +36,7 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')),
     # path(r'^media/(?P<path>.*)$',  serve, {"document_root":MEDIA_ROOT}),
     path(r'ueditor/', include('DjangoUeditor.urls')),
+    path(r'forget_pwd/', IndexView.as_view(), name='forget_pwd'),
     path('', IndexView.as_view(), name='index'),
 ]
 
