@@ -1,7 +1,9 @@
+from datetime import datetime
+
 from django.db import models
 
 # Create your models here.
-from django.db.models import Model, CharField, IntegerField, ImageField
+from django.db.models import Model, CharField, IntegerField, ImageField, ForeignKey, DateTimeField, CASCADE
 from DjangoUeditor.models import UEditorField
 
 class CourseOrg(Model):
@@ -16,3 +18,27 @@ class CourseOrg(Model):
     address = CharField(max_length=150, verbose_name=u'地址')
     students = IntegerField(default=0, verbose_name=u'学习人数')
     course_nums = IntegerField(default=0, verbose_name=u'学习人数')
+
+
+class Teacher(Model):
+    org = ForeignKey(CourseOrg, verbose_name=u'所属机构', on_delete=CASCADE)
+    name = CharField(max_length=50, verbose_name=u'教师名')
+    work_years = IntegerField(default=0, verbose_name=u'工作年限')
+    work_company = CharField(max_length=50, verbose_name=u'就职公司')
+    points = CharField(max_length=50, verbose_name=u'教学特点')
+    click_nums = IntegerField(default=0, verbose_name=u'点击数')
+    fav_nums = IntegerField(default=0, verbose_name=u'收藏数')
+    age = IntegerField(default=18, verbose_name=u'年龄')
+    image = ImageField(default='', upload_to='teacher/%Y/%m', verbose_name=u'头像', max_length=100)
+    add_time = DateTimeField(default=datetime.now())
+
+    class Meta:
+        verbose_name = u'教师'
+        verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return self.name
+
+    def get_course_count(self):
+        return self.course_set.all().count()
+
