@@ -18,12 +18,12 @@ from django.conf.urls.static import static
 from django.views.static import serve
 
 import xadmin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from index.views import IndexView
 from mukeweb import settings
 from mukeweb.settings import MEDIA_ROOT
-from users.views import RegisterView, LogoutView, LoginView
+from users.views import RegisterView, LogoutView, LoginView, ActiveUserView
 
 urlpatterns = [
     path('admin/', xadmin.site.urls),
@@ -37,6 +37,7 @@ urlpatterns = [
     # path(r'^media/(?P<path>.*)$',  serve, {"document_root":MEDIA_ROOT}),
     path(r'ueditor/', include('DjangoUeditor.urls')),
     path(r'forget_pwd/', IndexView.as_view(), name='forget_pwd'),
+    re_path('active/(?P<active_code>.*)/', ActiveUserView.as_view(),name='user_active'),
     path('', IndexView.as_view(), name='index'),
 ]
 

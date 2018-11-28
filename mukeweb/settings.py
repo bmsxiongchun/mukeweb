@@ -48,7 +48,16 @@ INSTALLED_APPS = [
     'organization',
     'DjangoUeditor',
     'captcha',
+    # 分页插件
+    'pure_pagination',
 ]
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 10,
+    'MARGIN_PAGES_DISPLAYED': 2,
+
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
 
 # 需要添加AUTH_USER_MODEL，不然继承自AbstractUser的Model则会报403的错误
 AUTH_USER_MODEL = "users.UsersInfo"
@@ -132,7 +141,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -145,4 +154,11 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_HOST = "smtp.qq.com"  # SMTP服务器主机
+EMAIL_PORT = 25             # 端口
+EMAIL_HOST_USER = "1095939843@qq.com"       # 邮箱地址
+EMAIL_HOST_PASSWORD = "rhgqpitnvjfbbaaj"    # 密码
+EMAIL_USE_TLS= True
+EMAIL_FROM = "1095939843@qq.com"            # 邮箱地址
 
